@@ -1,5 +1,6 @@
 package com.gft.gerenciadordeeventos.controller;
 
+import com.gft.gerenciadordeeventos.model.Evento;
 import com.gft.gerenciadordeeventos.model.Pedido;
 import com.gft.gerenciadordeeventos.service.EventoService;
 import com.gft.gerenciadordeeventos.service.PedidoService;
@@ -41,17 +42,20 @@ public class PedidoController {
     }
 
     @PostMapping("novo-pedido/{id_evento}")
-    public ModelAndView salvarPedido(@Valid Pedido pedido, @PathVariable("id_evento") Long idEvento, BindingResult bindingResult, RedirectAttributes attributes){
-
+    public ModelAndView salvarPedido(@PathVariable("id_evento") Long idEvento, @Valid Pedido pedido, BindingResult bindingResult, RedirectAttributes attributes){
+        Evento evento = eventoService.buscarPorId(idEvento);
+        if (pedidoService.validaPedido(pedido, evento)){
+            bindingResult.rejectValue("quantidade", null, "Ingressos insuficientes");
+        }
         if (bindingResult.hasErrors()){
-            return novoPedido(pedido, null);
+            return novoPedido(pedido, idEvento).addObject("pedido", pedido);
         }
         try {
-            pedidoService.adicionar(pedido,idEvento);
-        }catch (RuntimeException e){
+            pedidoService.adicionar(pedido,evento);
+        }catch (Exception e){
             e.printStackTrace();
             bindingResult.rejectValue("quantidade", e.getMessage(), e.getMessage());
-            return novoPedido(pedido, null);
+            return novoPedido(pedido, idEvento);
         }
 
         attributes.addFlashAttribute("message", "Pedido finalizado com sucesso.");

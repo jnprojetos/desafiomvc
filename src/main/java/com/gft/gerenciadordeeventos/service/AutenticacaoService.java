@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class AutenticacaoService implements UserDetailsService {
 
@@ -18,10 +16,7 @@ public class AutenticacaoService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Usuario> usuario = usuarioRepository.findByNome(username);
-        if (usuario.isPresent()){
-            return usuario.get();
-        }
-        throw new UsernameNotFoundException("Usuário ou senha inválido.");
+        Usuario usuario = usuarioRepository.findByNome(username).orElseThrow(()-> new UsernameNotFoundException("Usuário ou senha inválido."));
+        return usuario;
     }
 }

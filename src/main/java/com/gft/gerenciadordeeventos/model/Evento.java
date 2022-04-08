@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -27,6 +24,7 @@ public class Evento {
     private String nome;
 
     @NotNull(message = "A capcidade do evento é obrigatória.")
+    @Min(value = 0, message = "O mínimo é um.")
     private Integer capacidade;
 
     @NotNull(message = "O preço do ingresso é obrigatório.")

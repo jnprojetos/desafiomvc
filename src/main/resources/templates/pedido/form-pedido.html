@@ -5,6 +5,11 @@
 
 <div layout:fragment="content">
     <div>
+        <div class="alert alert-danger alert-dismissible mt-3" role="alert" th:if="${message != null}">
+            <div th:each="m : ${message}">
+                <p>[[${m.getDefaultMessage()}]]</p>
+            </div>
+        </div>
         <th:block th:include="fragments/mensagem-sucesso"></th:block>
         <div class="card mt-3">
             <div class="card-header" style="background-color: #243c7c; color: #ffff;">
@@ -39,7 +44,7 @@
                             <div class="col-md-4">
                                 <form method="POST" th:object="${pedido}" th:action="@{|/pedidos/novo-pedido/${evento.id}|}">
                                     <label class="mb-3">Quantidade:  </label>
-                                    <input type="number" id="qtde" class="form-control"  th:field="*{quantidade}" th:errorClass="is-invalid">
+                                    <input type="number" class="form-control"  th:field="*{quantidade}" th:errorClass="is-invalid">
                                     <div class="invalid-feedback" th:errors="*{quantidade}"></div>
                                     <button class="btn mt-2" type="submit" style="background-color: #243c7c; color: #ffff;">Finalizar Compra</button>
                                 </form>

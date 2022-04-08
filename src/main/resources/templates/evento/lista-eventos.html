@@ -4,6 +4,7 @@
       layout:decorate="~{principal.html}">
 
 <div layout:fragment="content">
+    <th:block th:include="fragments/mensagem-erro"></th:block>
     <th:block th:include="fragments/mensagem-sucesso"></th:block>
     <div class="card mt-3 mb-3">
         <h2 class="text-center">EVENTOS</span></h2>
@@ -24,9 +25,9 @@
             <tr th:each="evento: ${lista}">
                 <td th:text="${evento.id}"></td>
                 <td th:text="${evento.nome}" width="75%"></td>
-                <td th:text="${evento.precoIngresso}"></td>
+                <td th:text="'R$ ' + ${#numbers.formatDecimal(evento.precoIngresso, 0, 'POINT', 2, 'COMMA')}"></td>
                 <td th:text="${evento.capacidade}"></td>
-                <td th:text="${evento.dataEvento}"></td>
+                <td th:text="${#temporals.format(evento.dataEvento, 'dd/MM/yyyy')}"></td>
                 <td>
                     <a th:href="@{/eventos/editar(id=${evento.id})}"><span class="material-icons">edit</span></a>
                     <a th:href="@{/eventos/excluir(id=${evento.id})}" onclick="return confirm('Deseja excluir o registro?')"><span class="material-icons">delete_outline</span></a>

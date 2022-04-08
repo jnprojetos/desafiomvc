@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface CasaDeShowRepository extends JpaRepository<CasaDeShow, Long> {
 
-    Optional<CasaDeShow> findByNome(String nome);
+    Optional<CasaDeShow> findByNomeAndEndereco(String nome, String endereco);
     Optional<List<CasaDeShow>> findByNomeContains(String nome);
 }

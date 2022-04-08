@@ -6,6 +6,7 @@ layout:decorate="~{principal.html}">
 
 <div layout:fragment="content">
 <div>
+	<th:block th:include="fragments/mensagem-erro"></th:block>
 	<th:block th:include="fragments/mensagem-sucesso"></th:block>
 	<div class="alert alert-primary mt-3" th:if="${#lists.isEmpty(lista)}">Nenhuma registro encontrado.</div>
 		<div class="card mt-3">
@@ -35,6 +36,7 @@ layout:decorate="~{principal.html}">
 					<tr>
 						<th scope="col">Id</th>
 						<th scope="col">Nome</th>
+						<th scope="col">Endereço</th>
 						<th scope="col">Ações</th>
 					</tr>
 				</thead>
@@ -42,6 +44,7 @@ layout:decorate="~{principal.html}">
 					<tr th:each="casaDeShow: ${lista}">
 						<td th:text="${casaDeShow.id}"></td>
 						<td th:text="${casaDeShow.nome}" width="75%"></td>
+						<td th:text="${casaDeShow.endereco}"></td>
 						<td>
 							<a th:href="@{/casaDeShow/editar(id=${casaDeShow.id})}"><span class="material-icons">edit</span></a>
 							<a th:href="@{/casaDeShow/excluir(id=${casaDeShow.id})}" onclick="return confirm('Deseja excluir o registro?')"><span class="material-icons">delete_outline</span></a>

@@ -5,7 +5,7 @@
 
 <div layout:fragment="content">
   <div class="card mt-3 mb-3">
-    <h2 class="text-center"> Bem-vindo - <span th:text="${usuario}"></span></h2>
+    <h2 class="text-center"> Bem-vindo - <span class="text-capitalize" th:text="${#authentication.name}"></span></h2>
   </div>
   <div class="row">
     <div class="col-sm-2" th:each="evento: ${lista}">

@@ -6,6 +6,7 @@ layout:decorate="~{principal.html}">
 
 <div layout:fragment="content">
 <div>
+	<th:block th:include="fragments/mensagem-erro"></th:block>
 	<th:block th:include="fragments/mensagem-sucesso"></th:block>
 	<div class="alert alert-primary mt-3" th:if="${#lists.isEmpty(lista)}">Nenhuma registro encontrado.</div>
 		<div class="card mt-3">
@@ -43,13 +44,32 @@ layout:decorate="~{principal.html}">
 						<td th:text="${usuario.id}"></td>
 						<td th:text="${usuario.nome}" width="75%"></td>
 						<td>
-							<a th:href="@{/usuario/editar(id=${usuario.id})}"><span class="material-icons">edit</span></a>
-							<a th:href="@{/usuario/excluir(id=${usuario.id})}" onclick="return confirm('Deseja excluir o registro?')"><span class="material-icons">delete_outline</span></a>
+							<a th:href="@{/usuarios/editar(id=${usuario.id})}"><span class="material-icons">edit</span></a>
+							<a href="#"><span class="material-icons" data-bs-toggle="modal" th:data-bs-target="|#exampleModal${usuario.id}|">delete_outline</span></a>
 						</td>
+						<!-- Modal -->
+						<div class="modal fade" th:id="|exampleModal${usuario.id}|" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Deseja realmente excluir o usuário <span th:text="${usuario.nome}"></span> ?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+										<a type="button" class="btn btn-danger" th:href="@{/usuarios/excluir(id=${usuario.id})}">Confirmar</a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
+
 </div>
 </html>

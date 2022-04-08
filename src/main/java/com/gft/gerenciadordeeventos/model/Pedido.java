@@ -5,10 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -26,8 +26,7 @@ public class Pedido {
     private LocalDate dataPedido;
 
     @NotNull(message = "Informe a quantidade")
-    @Digits(integer = 10, fraction = 2)
-    @Min(value = 1, message = "O mínimo é um ingresso.")
+    @DecimalMin(value = "1", inclusive = true, message = "O mínimo é um ingresso.")
     private Integer quantidade;
 
     @Digits(integer = 10, fraction = 2)

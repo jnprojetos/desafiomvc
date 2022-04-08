@@ -15,7 +15,7 @@ public class CasaDeShowService {
     private CasaDeShowRepository casaDeShowRepository;
 
     public CasaDeShow adicionar(CasaDeShow casaDeShow){
-        var casaDeShowExistente = casaDeShowRepository.findByNome(casaDeShow.getNome());
+        var casaDeShowExistente = casaDeShowRepository.findByNomeAndEndereco(casaDeShow.getNome(), casaDeShow.getEndereco());
         if (casaDeShowExistente.isPresent()){
             throw new RuntimeException("Casa de show já cadastrada.");
         }

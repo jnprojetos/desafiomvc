@@ -6,6 +6,7 @@ layout:decorate="~{principal.html}">
 
 <div layout:fragment="content">
 <div>
+	<th:block th:include="fragments/mensagem-erro"></th:block>
 	<th:block th:include="fragments/mensagem-sucesso"></th:block>
 	<div class="alert alert-primary mt-3" th:if="${#lists.isEmpty(lista)}">Nenhuma registro encontrado.</div>
 		<div class="card mt-3">

@@ -73,7 +73,7 @@ public class CasaDeShowController {
             casaDeShowService.deletar(id);
             redirectAttributes.addFlashAttribute("message", "Registro excluído com sucesso");
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("message", "Erro ao excluir o registro."+e.getMessage());
+            redirectAttributes.addFlashAttribute("messageError", "Erro ao excluir o registro.");
         }
         return mv;
     }
