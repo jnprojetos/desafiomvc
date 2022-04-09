@@ -39,6 +39,6 @@ public class PedidoService {
     }
 
     public boolean validaPedido(Pedido pedido, Evento evento){
-        return pedido.getQuantidade() > evento.getCapacidade();
+        return pedido.getQuantidade() != null && pedido.getQuantidade() > evento.getCapacidade();
     }
 }

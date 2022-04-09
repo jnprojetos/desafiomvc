@@ -1,11 +1,15 @@
 package com.gft.gerenciadordeeventos.service;
 
+import com.gft.gerenciadordeeventos.model.Permissao;
 import com.gft.gerenciadordeeventos.model.Usuario;
 import com.gft.gerenciadordeeventos.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -21,6 +25,8 @@ public class UsuarioService {
         if(usuarioExistente.isPresent()){
             throw new RuntimeException("Usuário já cadastrado.");
         }
+        usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
+        usuario.setPermissoes(Collections.singletonList(new Permissao(2L)));
         return usuarioRepository.save(usuario);
     }
 

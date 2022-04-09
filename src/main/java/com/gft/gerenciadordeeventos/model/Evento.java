@@ -29,6 +29,7 @@ public class Evento {
 
     @NotNull(message = "O preço do ingresso é obrigatório.")
     @Digits(fraction = 2, integer = 10)
+    @DecimalMin(value = "0.01", message = "O valor do ingresso não pode ser zero.")
     private BigDecimal precoIngresso;
 
     @NotNull(message = "A data do evento é obrigatória.")

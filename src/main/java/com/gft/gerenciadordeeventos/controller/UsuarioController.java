@@ -37,7 +37,6 @@ public class UsuarioController {
             return novoUsuario(usuario);
         }
         try {
-            usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
             usuarioService.adicionar(usuario);
         }catch (RuntimeException e){
             bindingResult.rejectValue("nome", e.getMessage(), e.getMessage());

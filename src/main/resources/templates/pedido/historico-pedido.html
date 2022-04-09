@@ -7,7 +7,7 @@
     <th:block th:include="fragments/mensagem-sucesso"></th:block>
     <div class="card mt-3">
         <div class="card-body text-center bg-gray">
-            <h4>HISTÓRICO DE DE <span class="text-uppercase" th:text="${usuario}"></span></h4>
+            <h4>HISTÓRICO DO USUÁRIO <span class="text-uppercase" th:text="${usuario}"></span></h4>
         </div>
     </div>
     <div th:if="${not #lists.isEmpty(pedidos)}">

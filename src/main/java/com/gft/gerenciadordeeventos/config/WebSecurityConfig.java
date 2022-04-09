@@ -31,15 +31,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/usuario/novo").hasRole("ADMIN")
+                .antMatchers("/usuarios/novo").permitAll()
+                .antMatchers("/usuarios").hasRole("ADMIN")
+                .antMatchers("/casaDeShow/**").hasRole("ADMIN")
+                .antMatchers("/eventos/**").hasRole("ADMIN")
+                .antMatchers("/generoMusical/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin( form -> form
                     .loginPage("/login")
-                    .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/home")
-                    .usernameParameter("username")
-                    .passwordParameter("password")
+                    .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
                 .logout(logout -> logout.logoutUrl("/logout"));

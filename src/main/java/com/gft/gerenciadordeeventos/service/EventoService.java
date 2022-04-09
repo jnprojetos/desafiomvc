@@ -5,6 +5,7 @@ import com.gft.gerenciadordeeventos.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,10 +16,12 @@ public class EventoService {
     EventoRepository eventoRepository;
 
     public Evento adicionar(Evento evento){
+        evento.setPrecoIngresso(new BigDecimal(String.valueOf(evento.getPrecoIngresso())));
         var eventoExistente = eventoRepository.findByNomeAndDataEvento(evento.getNome(), evento.getDataEvento());
         if (eventoExistente.isPresent()){
             throw new RuntimeException("Evento já cadastrado nessa data.");
         }
+
         return eventoRepository.save(evento);
     }
 

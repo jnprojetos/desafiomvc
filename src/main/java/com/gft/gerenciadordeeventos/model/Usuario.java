@@ -28,6 +28,9 @@ public class Usuario implements UserDetails {
     @NotEmpty(message = "A senha é obrigatória.")
     private String senha;
 
+    @Transient
+    private String confirmacaoSenha;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Pedido> pedidos;
 
