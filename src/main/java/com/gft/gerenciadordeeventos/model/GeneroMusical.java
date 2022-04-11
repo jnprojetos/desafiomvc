@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -24,4 +25,7 @@ public class GeneroMusical {
     @NotEmpty(message = "Nome é obrigatório.")
     @Size(min = 5, max = 100, message = "O nome deve ter no mínimo 5 e no máximo 100 caracteres.")
     private String nome;
+
+    @NotBlank(message = "A url da imagem é obrigatória.")
+    private String urlImagem;
 }

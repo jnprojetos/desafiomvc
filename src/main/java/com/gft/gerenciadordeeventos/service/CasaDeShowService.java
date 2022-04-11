@@ -31,8 +31,7 @@ public class CasaDeShowService {
         }
     }
     private List<CasaDeShow> listarCasaDeShowPorNome(String nome){
-        Optional<List<CasaDeShow>> lista = casaDeShowRepository.findByNomeContains(nome);
-        return lista.get();
+        return casaDeShowRepository.findByNomeContainsIgnoreCase(nome);
     }
 
     public CasaDeShow buscarPorId(Long id){

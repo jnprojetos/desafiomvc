@@ -40,9 +40,6 @@ public class Evento {
     @NotBlank
     private String horario;
 
-    @NotBlank(message = "A url da imagem é obrigatória.")
-    private String urlImagem;
-
     @NotNull(message = "Selecione uma casa de show")
     @ManyToOne
     private CasaDeShow casaDeShow;

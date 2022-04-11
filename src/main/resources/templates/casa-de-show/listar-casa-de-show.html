@@ -8,6 +8,9 @@ layout:decorate="~{principal.html}">
 <div>
 	<th:block th:include="fragments/mensagem-erro"></th:block>
 	<th:block th:include="fragments/mensagem-sucesso"></th:block>
+	<div class="card mt-3 mb-3">
+		<h2 class="text-center">CASA DE SHOW</span></h2>
+	</div>
 	<div class="alert alert-primary mt-3" th:if="${#lists.isEmpty(lista)}">Nenhuma registro encontrado.</div>
 		<div class="card mt-3">
 			<div class="card-header" style="background-color: #243c7c; color: #ffff;">
@@ -47,8 +50,26 @@ layout:decorate="~{principal.html}">
 						<td th:text="${casaDeShow.endereco}"></td>
 						<td>
 							<a th:href="@{/casaDeShow/editar(id=${casaDeShow.id})}"><span class="material-icons">edit</span></a>
-							<a th:href="@{/casaDeShow/excluir(id=${casaDeShow.id})}" onclick="return confirm('Deseja excluir o registro?')"><span class="material-icons">delete_outline</span></a>
+							<a href="#"><span class="material-icons" data-bs-toggle="modal" th:data-bs-target="|#exampleModal${casaDeShow.id}|">delete_outline</span></a>
 						</td>
+						<!-- Modal -->
+						<div class="modal fade" th:id="|exampleModal${casaDeShow.id}|" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Deseja realmente excluir a casa de show <span th:text="${casaDeShow.nome}"></span> ?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+										<a type="button" class="btn btn-danger" th:href="@{/casaDeShow/excluir(id=${casaDeShow.id})}">Confirmar</a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</tr>
 				</tbody>
 			</table>

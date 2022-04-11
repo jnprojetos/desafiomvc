@@ -25,8 +25,6 @@ layout:decorate="~{principal.html}">
 							<button class="btn btn-outline-secondary" type="submit" style="background-color: #243c7c; color: #ffff;">Consultar</button>
 						</div>
 					</div>
-
-
 				</form>
 			</div>
 		</div>
@@ -40,31 +38,57 @@ layout:decorate="~{principal.html}">
 				</tr>
 				</thead>
 				<tbody>
-				<tr th:each="usuario: ${lista}">
-					<td th:text="${usuario.id}"></td>
-					<td th:text="${usuario.nome}" width="75%"></td>
-					<td>
-						<a href="#"><span class="material-icons" data-bs-toggle="modal" th:data-bs-target="|#exampleModal${usuario.id}|">delete_outline</span></a>
-					</td>
-					<!-- Modal -->
-					<div class="modal fade" th:id="|exampleModal${usuario.id}|" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<div class="modal-body">
-									Deseja realmente excluir o usuário <span th:text="${usuario.nome}"></span> ?
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-									<a type="button" class="btn btn-danger" th:href="@{/usuarios/excluir(id=${usuario.id})}">Confirmar</a>
+					<tr th:each="usuario: ${lista}">
+						<td th:text="${usuario.id}"></td>
+						<td th:text="${usuario.nome}" width="75%"></td>
+						<td>
+							<a th:href="@{/usuarios/editar(id=${usuario.id})}"><span class="material-icons">edit</span></a>
+							<a href="#"><span class="material-icons" data-bs-toggle="modal" th:data-bs-target="|#exampleModal${usuario.id}|">delete_outline</span></a>
+							<a href="#"><span class="material-icons" data-bs-toggle="modal" th:data-bs-target="|#ModalPermissoes${usuario.id}|">lock</span></a>
+
+						</td>
+						<!-- Modal -->
+						<div class="modal fade" th:id="|exampleModal${usuario.id}|" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Deseja realmente excluir o usuário <span th:text="${usuario.nome}"></span> ?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+										<a type="button" class="btn btn-danger" th:href="@{/usuarios/excluir(id=${usuario.id})}">Confirmar</a>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</tr>
+						<!-- fim Modal excluir -->
+
+						<!-- Modal Permissões-->
+						<div class="modal fade" th:id="|ModalPermissoes${usuario.id}|" tabindex="-1" aria-labelledby="ModalPermissoesLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header" style="background-color: #243c7c; color: #ffff;">
+										<h5 class="modal-title" id="ModalPermissoesLabel">Permissões</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<ul>
+											<li th:each="permissao: ${usuario.permissoes}">
+												[[${permissao.nome.substring(5)}]]
+											</li>
+										</ul>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</tr>
 				</tbody>
 			</table>
 		</div>

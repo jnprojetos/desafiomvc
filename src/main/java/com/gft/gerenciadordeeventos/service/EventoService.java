@@ -17,9 +17,9 @@ public class EventoService {
 
     public Evento adicionar(Evento evento){
         evento.setPrecoIngresso(new BigDecimal(String.valueOf(evento.getPrecoIngresso())));
-        var eventoExistente = eventoRepository.findByNomeAndDataEvento(evento.getNome(), evento.getDataEvento());
+        var eventoExistente = eventoRepository.findByNomeAndDataEventoAndCasaDeShow(evento.getNome(), evento.getDataEvento(), evento.getCasaDeShow());
         if (eventoExistente.isPresent()){
-            throw new RuntimeException("Evento já cadastrado nessa data.");
+            throw new RuntimeException("Evento já cadastrado nessa data e casa de show.");
         }
 
         return eventoRepository.save(evento);

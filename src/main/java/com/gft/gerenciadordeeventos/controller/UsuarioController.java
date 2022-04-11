@@ -1,5 +1,6 @@
 package com.gft.gerenciadordeeventos.controller;
 
+import com.gft.gerenciadordeeventos.model.GeneroMusical;
 import com.gft.gerenciadordeeventos.model.Usuario;
 import com.gft.gerenciadordeeventos.service.PermissaoService;
 import com.gft.gerenciadordeeventos.service.UsuarioService;
@@ -53,6 +54,21 @@ public class UsuarioController {
     public ModelAndView listarUsuarios(String nome){
         ModelAndView mv = new ModelAndView("usuario/listar-usuario");
         mv.addObject("lista", usuarioService.listarUsuarios(nome));
+        return mv;
+    }
+
+    @GetMapping("/editar")
+    public ModelAndView editarUsuario(@RequestParam Long id){
+        ModelAndView mv = new ModelAndView("usuario/form-usuario");
+        Usuario usuario;
+        try {
+            usuario = usuarioService.buscarPorId(id);
+        }catch (Exception e){
+            usuario = new Usuario();
+            mv.addObject("message", usuario);
+        }
+        mv.addObject("usuario", usuario);
+        mv.addObject("listaPermissoes", permissaoService.listaPermissao());
         return mv;
     }
 

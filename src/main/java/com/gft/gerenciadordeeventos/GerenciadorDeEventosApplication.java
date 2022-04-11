@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class GerenciadorDeEventosApplication {
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(GerenciadorDeEventosApplication.class, args);
 
 		System.out.println((new BCryptPasswordEncoder().encode("123")));

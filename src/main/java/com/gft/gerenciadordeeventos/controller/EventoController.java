@@ -47,6 +47,8 @@ public class EventoController {
             eventoService.adicionar(evento);
         }catch (RuntimeException e){
             bindingResult.rejectValue("nome", e.getMessage(), e.getMessage());
+            bindingResult.rejectValue("dataEvento", null, null);
+
             return novoEvento(evento);
         }
 

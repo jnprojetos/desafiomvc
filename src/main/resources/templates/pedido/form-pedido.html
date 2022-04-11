@@ -18,7 +18,7 @@
             <div class="card-body">
                 <th:block th:object="${evento}">
                     <div class="text-center">
-                        <img  th:src="${evento.urlImagem}" height="500px" width="750px">
+                        <img  th:src="${evento.generoMusical.urlImagem}" height="500px" width="750px">
                     </div>
                     <br>
                     <h1 th:text="${evento.nome}" class="text-center text-uppercase font-weight-bold"></h1>

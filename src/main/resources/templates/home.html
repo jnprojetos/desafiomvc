@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-sm-2" th:each="evento: ${lista}">
       <div class="card mb-3 shadow-sm">
-        <img class="card-img-top" th:src="${evento.urlImagem}" alt="Imagem de capa do card" height="200px">
+        <img class="card-img-top" th:src="${evento.generoMusical.urlImagem}" alt="Imagem de capa do card" height="200px">
         <div class="card-body text-center">
           <h5 class="card-title text-uppercase text-center mb-4" th:text="${evento.nome}">Título do card</h5>
           <p class="card-text" th:text="'Valor Ingresso: R$ ' + ${#numbers.formatDecimal(evento.precoIngresso, 0, 'POINT', 2, 'COMMA')}">Ingressos Restantes</p>

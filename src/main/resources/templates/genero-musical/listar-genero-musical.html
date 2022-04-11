@@ -8,6 +8,10 @@ layout:decorate="~{principal.html}">
 <div>
 	<th:block th:include="fragments/mensagem-erro"></th:block>
 	<th:block th:include="fragments/mensagem-sucesso"></th:block>
+
+		<div class="card mt-3 mb-3">
+			<h2 class="text-center">GÊNERO MUSICAL</span></h2>
+		</div>
 	<div class="alert alert-primary mt-3" th:if="${#lists.isEmpty(lista)}">Nenhuma registro encontrado.</div>
 		<div class="card mt-3">
 			<div class="card-header" style="background-color: #243c7c; color: #ffff;">
@@ -25,8 +29,6 @@ layout:decorate="~{principal.html}">
 							<button class="btn btn-outline-secondary" type="submit" style="background-color: #243c7c; color: #ffff;">Consultar</button>
 						</div>
 					</div>
-					
-					
 				</form>
 			</div>
 		</div>
@@ -36,17 +38,37 @@ layout:decorate="~{principal.html}">
 					<tr>
 						<th scope="col">Id</th>
 						<th scope="col">Nome</th>
+						<th scope="col">Imagem</th>
 						<th scope="col">Ações</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="generoMusical: ${lista}">
 						<td th:text="${generoMusical.id}"></td>
-						<td th:text="${generoMusical.nome}" width="75%"></td>
+						<td th:text="${generoMusical.nome}" width="50%"></td>
+						<td th:text="${generoMusical.urlImagem}"></td>
 						<td>
 							<a th:href="@{/generoMusical/editar(id=${generoMusical.id})}"><span class="material-icons">edit</span></a>
-							<a th:href="@{/generoMusical/excluir(id=${generoMusical.id})}" onclick="return confirm('Deseja excluir o registro?')"><span class="material-icons">delete_outline</span></a>
+							<a href="#" data-bs-toggle="modal" th:data-bs-target="|#exampleModal${generoMusical.id}|"><span class="material-icons">delete_outline</span></a>
 						</td>
+						<!-- Modal -->
+						<div class="modal fade" th:id="|exampleModal${generoMusical.id}|" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Deseja realmente excluir o gênero musical <span th:text="${generoMusical.nome}"></span> ?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+										<a type="button" class="btn btn-danger" th:href="@{/generoMusical/excluir(id=${generoMusical.id})}">Confirmar</a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</tr>
 				</tbody>
 			</table>

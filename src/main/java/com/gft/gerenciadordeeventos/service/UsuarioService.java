@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -18,23 +17,35 @@ public class UsuarioService {
     UsuarioRepository usuarioRepository;
 
     public Usuario buscarPorNome(String nome){
-        return usuarioRepository.findByNome(nome).get();
+       return usuarioRepository.findByNome(nome)
+                .orElseThrow(()-> new RuntimeException("Usuario não localizado."));
     }
+
     public Usuario adicionar(Usuario usuario){
-        var usuarioExistente = usuarioRepository.findByNome(usuario.getNome());
-        if(usuarioExistente.isPresent()){
-            throw new RuntimeException("Usuário já cadastrado.");
+        if (usuario.getId() == null){
+            var usuarioExistente = usuarioRepository.findByNome(usuario.getNome());
+            if(usuarioExistente.isPresent()){
+                throw new RuntimeException("Usuário já cadastrado.");
+            }
+        }
+        if(usuario.getPermissoes().isEmpty()){
+            usuario.setPermissoes(Collections.singletonList(new Permissao(2L, "ROLE_USER")));
         }
         usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
-        usuario.setPermissoes(Collections.singletonList(new Permissao(2L)));
+
         return usuarioRepository.save(usuario);
     }
 
     public List<Usuario> listarUsuarios(String nome){
-        if (nome != null && nome != ""){
-            return usuarioRepository.findByNomeContains(nome).get();
+        if (nome != null && !nome.isBlank()){
+            return usuarioRepository.findByNomeIgnoreCaseContains(nome);
         }
         return usuarioRepository.findAll();
+    }
+
+    public Usuario buscarPorId(Long id){
+        return usuarioRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Usuario não localizado."));
     }
 
     public void deletar(Long id){

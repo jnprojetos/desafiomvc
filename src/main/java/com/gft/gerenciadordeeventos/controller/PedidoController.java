@@ -58,7 +58,7 @@ public class PedidoController {
             return novoPedido(pedido, idEvento);
         }
 
-        attributes.addFlashAttribute("message", "Pedido finalizado com sucesso.");
+        attributes.addFlashAttribute("message", "Pedido finalizado com sucesso. Você receberá um confirmação do pedido por e-mail!");
 
         return new ModelAndView("redirect:/pedidos/historico");
     }

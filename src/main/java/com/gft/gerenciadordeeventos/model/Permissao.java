@@ -2,6 +2,7 @@ package com.gft.gerenciadordeeventos.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Entity;
@@ -14,12 +15,14 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class Permissao implements GrantedAuthority {
 
-    public Permissao(){
-    };
-
-    public Permissao(Long id) {
-        this.id = id;
+    public Permissao() {
     }
+
+    public Permissao(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

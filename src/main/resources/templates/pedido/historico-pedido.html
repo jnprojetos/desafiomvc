@@ -5,6 +5,7 @@
 
 <div layout:fragment="content">
     <th:block th:include="fragments/mensagem-sucesso"></th:block>
+    <div class="alert alert-primary mt-3" th:if="${#lists.isEmpty(pedidos)}">Nenhuma pedido encontrado.</div>
     <div class="card mt-3">
         <div class="card-body text-center bg-gray">
             <h4>HISTÓRICO DO USUÁRIO <span class="text-uppercase" th:text="${usuario}"></span></h4>
